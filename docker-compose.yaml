@@ -11,7 +11,7 @@ services:
     image: mongodb:v1
     container_name: mongodb
     networks:
-      - roboshop1
+      - roboshop
     volumes:
     - source: mongodb
       target: /data/db
@@ -20,14 +20,14 @@ services:
     image: catalogue:v1
     container_name: catalogue
     networks:
-    - roboshop1
+    - roboshop
     depends_on:
     - mongodb
   redis:
     image: redis
     container_name: redis
     networks:
-      - roboshop1
+      - roboshop
     volumes:
     - source: redis
       target: /data
@@ -36,7 +36,7 @@ services:
     image: user:v1
     container_name: user
     networks:
-      - roboshop1
+      - roboshop
     depends_on:
       - mongodb
       - redis
@@ -44,7 +44,7 @@ services:
     image: cart:v1
     container_name: cart
     networks:
-      - roboshop1
+      - roboshop
     depends_on:
       - redis
       - catalogue
@@ -52,7 +52,7 @@ services:
     image: mysql:v1
     container_name: mysql
     networks:
-      - roboshop1
+      - roboshop
     volumes:
     - source: mysql
       target: /var/lib/mysql
@@ -61,7 +61,7 @@ services:
     image: shipping:v1
     container_name: shipping
     networks:
-      - roboshop1
+      - roboshop
     depends_on:
       - cart
       - mysql
@@ -69,7 +69,7 @@ services:
     image: rabbitmq
     container_name: rabbitmq
     networks:
-      - roboshop1
+      - roboshop
     volumes:
     - source: rabbitmq
       target: /var/lib/rabbitmq
@@ -81,7 +81,7 @@ services:
     image: payment:v1
     container_name: payment
     networks:
-      - roboshop1
+      - roboshop
     depends_on:
       - cart
       - user
